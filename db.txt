@@ -1,0 +1,29 @@
+CREATE TABLE user1(
+    sno INT AUTO_INCREMENT Primary key ,
+    curr_date DATE,
+    time_spent INT
+);
+
+INSERT INTO user1 values (1,"2024-06-12", 3);
+INSERT INTO user1 values (2,"2024-06-13", 6);
+INSERT INTO user1 values (3,"2024-06-14", 4);
+
+
+
+
+
+Create table login(
+
+userid INT PRIMARY KEY,
+usr VARCHAR(50) NOT NULL,
+pwd VARCHAR(90) NOT NULL
+
+);
+
+CREATE TABLE userdata(
+    userid INT,
+    date_user DATE,
+    time_user INT,
+
+    Foreign KEY (userid) REFERENCES login(userid)
+);
