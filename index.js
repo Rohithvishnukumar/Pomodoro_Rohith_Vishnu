@@ -218,23 +218,27 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
 import express from "express";
 import bodyParser from "body-parser";
 import session from "express-session";  // for session
 import { dirname } from "path";
 import { fileURLToPath } from "url";
-
 const __dirname = dirname(fileURLToPath(import.meta.url));
+
+import dotenv from "dotenv"
+dotenv.config();
+
+const SECRET_SESSION = process.env.SECRET_SESSION
+const HOST_DB = process.env.HOST_DB
+const USER_DB = process.env.USER_DB
+const PASSWORD_DB = process.env.PASSWORD_DB
+const DATABASE_DB = process.env.DATABASE_DB
+
+
+
+
+
+
 
 const port = 3000;
 const app = express();
@@ -248,7 +252,7 @@ app.set("views", __dirname + "/views");
 
 // Configure express-session
 app.use(session({
-    secret: 'Vishnu@123',
+    secret: SECRET_SESSION,
     resave: false,
     saveUninitialized: true,
     cookie: { secure: false } // Set to true if using HTTPS
@@ -260,10 +264,10 @@ app.use(session({
 import db from "mysql2";
 
 const pool = db.createPool({
-    host: "localhost",
-    user: "root",
-    password: "Rohith@123",
-    database: "protimer_rohith"
+    host: HOST_DB,
+    user: USER_DB,
+    password: PASSWORD_DB,
+    database: DATABASE_DB
 }).promise();
 
 testDB();
