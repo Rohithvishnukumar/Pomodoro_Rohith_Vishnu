@@ -14,11 +14,13 @@ INSERT INTO user1 values (3,"2024-06-14", 4);
 
 Create table login(
 
-userid INT PRIMARY KEY,
+userid INT PRIMARY KEY AUTO_INCREMENT,
 usr VARCHAR(50) NOT NULL,
 pwd VARCHAR(90) NOT NULL
 
 );
+
+
 
 CREATE TABLE userdata(
     userid INT,

@@ -90,12 +90,12 @@ const yValues = [];
 let maxval;
 
 for (let i = 0; i < data.length; i++) {
-  let temp = data[i].curr_date;
+  let temp = data[i].date_user;
   console.log(temp);
   temp = temp.substring(0, 10);
   xValues.push(temp);
 
-  let temp2 = data[i].time_spent;
+  let temp2 = data[i].time_user;
   temp2 = temp2 / 3600;
   console.log(temp2 + "---------");
   maxval = Math.floor(Math.max(...yValues));

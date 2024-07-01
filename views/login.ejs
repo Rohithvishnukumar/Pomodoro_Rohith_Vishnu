@@ -11,6 +11,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Playwrite+NL:wght@100..400&display=swap" rel="stylesheet">
 
     <style>
+
+        .winfo{
+            margin-left: 5vw;
+            color: red;
+        }
+
+
         body {
             display: flex;
             justify-content: center;
@@ -138,7 +145,7 @@
 
             .login-container {
                 width: 71vw;
-                height: 40vh;
+                height: 41vh;
                 margin-left: 10vw;
                 /* margin-top: 1vh; */
             }
@@ -183,7 +190,7 @@
 
         <div class="login-container">
             <form id="loginForm" method="POST" action="/login">
-                <h2>Login</h2>
+                <h2>Login / SignUp</h2>
                 <div class="input-group">
                     <label for="username"><b>Username</b></label>
                     <input type="text" id="username" name="username" required >
@@ -194,8 +201,11 @@
                     <input type="password" id="password" name="password" required>
                     <small>Error message</small>
                 </div>
-                <button type="submit"><b>Login</b></button>
+                <button type="submit"><b>Login / SignUp</b></button>
             </form>
+            <% if (locals.wrongpwd) { %>
+             <p class="winfo"><b> <%= locals.wrongpwd %></b> </p>
+            <% } %>
         </div>
 
     </div>
