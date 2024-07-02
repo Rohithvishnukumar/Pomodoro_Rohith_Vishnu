@@ -227,16 +227,11 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 import dotenv from "dotenv"
 dotenv.config();
-
 const SECRET_SESSION = process.env.SECRET_SESSION
 const HOST_DB = process.env.HOST_DB
 const USER_DB = process.env.USER_DB
 const PASSWORD_DB = process.env.PASSWORD_DB
 const DATABASE_DB = process.env.DATABASE_DB
-
-
-
-
 
 
 
@@ -262,7 +257,6 @@ app.use(session({
 
 // DB codes
 import db from "mysql2";
-
 const pool = db.createPool({
     host: HOST_DB,
     user: USER_DB,
@@ -282,18 +276,13 @@ async function testDB() {
 
 
 app.get("/", function (req, res) {
-    res.render("index.ejs");
+    res.render("index.ejs" , {datadb: req.session.username});
 });
-
-
 
 
 app.get("/login", function(req, res) {
     res.render("login.ejs");
 });
-
-
-
 
 
 app.post("/login", async function(req, res)
@@ -326,7 +315,7 @@ app.post("/login", async function(req, res)
             req.session.hashpwd = hashpwd;
             req.session.userid = userid;
 
-            return res.render("index.ejs", { datadb: username });
+            return res.render("index.ejs", { datadb: req.session.username });
         } 
 
         else if( temp[0][0].usr == username && temp[0][0].pwd != hashpwd)
@@ -371,7 +360,6 @@ app.post("/login", async function(req, res)
 
 
 
-
 app.post("/stats", async function (req, res) {
     const totalReceivedTime = (req.body.hour * 3600) + (req.body.minute * 60) + (req.body.seconds);
     const davar = new Date();
@@ -404,7 +392,6 @@ app.post("/stats", async function (req, res) {
         } 
 
         
-
         // Updating Record
         else if (prev[0][0].rohith == totalDate)
         {
@@ -426,7 +413,6 @@ app.post("/stats", async function (req, res) {
 
     res.redirect("/stats");
 });
-
 
 
 
