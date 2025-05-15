@@ -50,5 +50,4 @@
 
 ### Clone the Repository
 ```bash
-git clone https://github.com/yourusername/pro-pomodoro.git
-cd pro-pomodoro
+git clone https://github.com/Rohithvishnukumar/Pomodoro_Rohith_Vishnu.git
