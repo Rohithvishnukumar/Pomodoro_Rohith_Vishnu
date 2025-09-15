@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Pro-Pomodoro</title>
+    <link rel="shortcut icon" href="/Pro-Pomodoro1.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playwrite+NL:wght@100..400&display=swap" rel="stylesheet">
+
+    <style>
+
+        .winfo{
+            margin-left: 5vw;
+            color: red;
+        }
+
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+            font-family: Calibri, Arial, Helvetica, sans-serif;
+        }
+
+        .login-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 10vh;
+            width: 30vw;
+            height: 50vh;
+            font-family: Calibri, Arial, Helvetica, sans-serif;
+        }
+
+        h2 {
+            margin: 0 0 20px;
+            text-align: center;
+            font-family: Calibri, Arial, Helvetica, sans-serif;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            position: relative;
+            font-family: Calibri, Arial, Helvetica, sans-serif;
+            border-radius: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-family: Calibri, Arial, Helvetica, sans-serif;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 15px;
+            box-sizing: border-box;
+            font-family: Calibri, Arial, Helvetica, sans-serif;
+        }
+
+        input:focus {
+            border-color: #007bff;
+        }
+
+        small {
+            color: red;
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            visibility: hidden;
+            font-family: Calibri, Arial, Helvetica, sans-serif;
+        }
+
+        button {
+            width: 70%;
+            padding: 10px;
+            border: none;
+            border-radius: 18px;
+            background: #000000;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 9vh;
+            margin-left: 5vw;
+            font-family: Calibri, Arial, Helvetica, sans-serif;
+            font-size: 19px;
+
+        }
+
+        button:hover {
+            background: #6a9701;
+
+        }
+
+        .cont {
+            display: flex;
+            gap: 20vw;
+            flex-wrap: wrap;
+            font-family: Calibri, Arial, Helvetica, sans-serif;
+        }
+
+        .logoimg {
+            width: 300px;
+            height: 300px;
+            margin-top: 15vh;
+            font-family: Calibri, Arial, Helvetica, sans-serif;
+        }
+
+        @media only screen and (max-width: 681px) {
+            .logoimg {
+                width: 150px;
+                height: 150px;
+                margin-top: 25vh;
+            }
+
+            .cont {
+                gap: 5vw;
+                margin-left: 0px;
+                width: 100vw;
+                height: 100vh;
+            }
+
+            .login-container {
+                width: 60vw;
+                height: 50vh;
+            }
+        }
+
+        @media only screen and (max-width: 543px) {
+            .logoimg {
+                width: 100px;
+                height: 100px;
+                margin-top: 10vh;
+                margin-left: 39vw;
+            }
+
+            .login-container {
+                width: 71vw;
+                height: 41vh;
+                margin-left: 10vw;
+                /* margin-top: 1vh; */
+            }
+
+            button {
+                width: 70%;
+                padding: 10px;
+                border: none;
+                border-radius: 18px;
+                background: #000000;
+                color: #fff;
+                font-size: 16px;
+                cursor: pointer;
+                margin-top: 5vh;
+                margin-left: 10vw;
+                font-family: Calibri, Arial, Helvetica, sans-serif;
+                font-size: 19px;
+
+            }
+
+            #password{
+                margin-top: 1vh;
+            }
+
+            .cont{
+                display: block;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="cont">
+
+        <div class="image">
+            <img src="/Pro-Pomodoro1.png" alt="logo" class="logoimg">
+        </div>
+
+
+
+        <div class="login-container">
+            <form id="loginForm" method="POST" action="/signup">
+                <h2>SignUp</h2>
+                <div class="input-group">
+                    <label for="username"><b>Username</b></label>
+                    <input type="text" id="username" name="username" required >
+                    <small>Error message</small>
+                </div>
+                <div class="input-group">
+                    <label for="password"><b>Password</b></label>
+                    <input type="password" id="password" name="password" required>
+                    <small>Error message</small>
+                </div>
+                <div class="input-group">
+                    <label for="email_field"><b>E-mail</b></label>
+                    <input type="email" pattern=".+@gmail\.com" id="email_field" name="email_field" required>
+                    <small>Error message</small>
+                </div>
+                <button type="submit"><b>SignUp</b></button>
+            </form>
+            <% if (locals.wrongpwd) { %>
+             <p class="winfo"><b> <%= locals.wrongpwd %></b> </p>
+            <% } %>
+        </div>
+
+    </div>
+
+
+    <script src="login.js"></script>
+
+</body>
+
+</html>

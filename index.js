@@ -258,10 +258,10 @@ app.use(session({
 // DB codes
 import db from "mysql2";
 const pool = db.createPool({
-    host: HOST_DB,
-    user: USER_DB,
-    password: PASSWORD_DB,
-    database: DATABASE_DB
+    host: process.env.HOST_DB,
+    user: process.env.USER_DB,
+    password: process.env.PASSWORD_DB,
+    database: process.env.DATABASE_DB
 }).promise();
 
 testDB();
@@ -284,6 +284,45 @@ app.get("/login", function(req, res) {
     res.render("login.ejs");
 });
 
+app.get("/signup", function(req,res)
+{
+    res.render("signup.ejs");
+})
+
+app.post("/signup", async function(req,res)
+{
+    const username_signup = req.body.username;
+    const password_signup = req.body.password;
+    const email_id = req.body.email_field;
+    const hashpwd = await hashPassword(password_signup);
+
+    await storeInDb_signup();
+
+    async function storeInDb_signup()
+    {
+        try
+        {
+            await pool.query('INSERT INTO login (usr, pwd, email) VALUES ( ?, ?,?)', [username_signup,hashpwd,email_id ]);
+            res.render("login.ejs");
+        }
+        catch(error)
+        {
+            let message = error.message;
+            res.render("signup.ejs" , {wrongpwd : message})
+        }  
+    }
+
+    async function hashPassword(password) {
+        const encoder = new TextEncoder();
+        const data = encoder.encode(password);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        return hashHex;
+    }
+
+})
+
 
 app.post("/login", async function(req, res)
 {
@@ -297,8 +336,8 @@ app.post("/login", async function(req, res)
 
     async function storeInDb()
     {
-        const temp = await pool.query(`SELECT * FROM login WHERE usr = '${username}'`);
-        const validation = await pool.query(`SELECT * FROM login WHERE usr = '${username}' AND pwd = '${hashpwd}'`);
+        const temp = await pool.query('SELECT * FROM login WHERE usr = ?', [username]);
+        const validation = await pool.query('SELECT * FROM login WHERE usr = ? AND pwd = ?', [username,hashpwd]);
 
         console.log(temp[0])
         console.log(temp[0][0].usr)
@@ -307,7 +346,7 @@ app.post("/login", async function(req, res)
         if (validation[0].length != 0)
         {
             
-            let userid = await pool.query(`SELECT userid FROM login WHERE usr = '${username}' AND pwd = '${hashpwd}' `)
+            let userid = await pool.query('SELECT userid FROM login WHERE usr = ? AND pwd = ?', [username,hashpwd])
             userid = userid[0][0].userid
 
             // Store username and hashpwd in session
@@ -328,9 +367,9 @@ app.post("/login", async function(req, res)
         else if (temp[0].length == 0) 
         {
             
-            await pool.query(`INSERT INTO login(usr,pwd) VALUES( '${username}', '${hashpwd}')`);
+            await pool.query('INSERT INTO login(usr,pwd) VALUES( ?, ?) ',  [username,hashpwd] );
             console.log("Developer Rohith Vishnu");
-            let userid = await pool.query(`SELECT userid FROM login WHERE usr = '${username}' AND pwd = '${hashpwd}' `)
+            let userid = await pool.query('SELECT userid FROM login WHERE usr = ? AND pwd = ?', [username,hashpwd])
             userid = userid[0][0].userid
 
             // Store username and hashpwd in session 

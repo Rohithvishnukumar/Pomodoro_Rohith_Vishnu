@@ -17,6 +17,7 @@ Create table login(
 userid INT PRIMARY KEY AUTO_INCREMENT,
 usr VARCHAR(50) NOT NULL,
 pwd VARCHAR(90) NOT NULL
+email VARCHAR(255) UNIQUE, 
 
 );
 
